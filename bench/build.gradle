@@ -1,6 +1,18 @@
 apply plugin: "java"
 apply plugin: "application"
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
+    }
+}
+
+apply plugin: 'eu.appsatori.fatjar'
+
 repositories {
     mavenCentral()
 }
@@ -22,6 +34,12 @@ compileJava {
 }
 
 mainClassName = 'net.isucon.isucon5q.bench.Runner'
+
+fatJar {
+    manifest {
+        attributes 'Main-Class' : mainClassName
+    }
+}
 
 run {
     // pass stdin to application
